@@ -19,9 +19,9 @@ struct HeaderInfos: View {
                     .font(.largeTitle)
             })
             Spacer()
-            Image(systemName: "person.crop.circle")
+            Image("profile")
                 .resizable()
-                .frame(width: 32, height: 32)
+                .frame(width: 48, height: 48)
         }
     }
 }

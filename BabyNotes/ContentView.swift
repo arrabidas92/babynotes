@@ -11,6 +11,15 @@ struct ContentView: View {
     var body: some View {
         ScrollView {
             HeaderNote()
+            HeaderSection(style: .cta)
+                .padding(
+                    EdgeInsets(
+                        top: 16,
+                        leading: 32,
+                        bottom: 16,
+                        trailing: 32
+                    )
+                )
         }
     }
 }
