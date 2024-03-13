@@ -16,7 +16,7 @@ struct HeaderSearch: View {
                 "",
                 text: $search,
                 prompt:
-                    Text("Rechercher une note")
+                    Text("Search a note")
                     .foregroundStyle(Color.black)
             )
             .foregroundStyle(Color.black)

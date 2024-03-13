@@ -23,7 +23,9 @@ struct HomeNote: View {
                             )
                         )
                 }
-                NavigationLink(destination: AddNote()) { Image(systemName: "pencil.and.scribble")
+                NavigationLink(
+                    destination: AddNote()
+                ) { Image(systemName: "pencil.and.scribble")
                         .tint(Color.black)
                         .frame(width: 50, height: 50)
                         .background(Color("yellow"))
@@ -36,6 +38,7 @@ struct HomeNote: View {
                 }
             })
         })
+        .tint(Color.black)
     }
 }
 

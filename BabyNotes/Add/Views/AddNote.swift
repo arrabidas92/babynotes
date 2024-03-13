@@ -8,8 +8,25 @@
 import SwiftUI
 
 struct AddNote: View {
+    @State private var selectedColor = "yellow"
+    
     var body: some View {
-        Text("Hello, add note!")
+        NavigationStack {
+            ZStack {
+                Color(selectedColor).ignoresSafeArea()
+            }
+        }
+        .navigationTitle("Add a note")
+        .toolbar {
+            ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
+                Picker("Colors", selection: $selectedColor) {
+                    ForEach(["Yellow", "Green", "Red"], id: \.self) {
+                        Text($0)
+                    }
+                }
+                .pickerStyle(.automatic)
+            }
+        }
     }
 }
 
