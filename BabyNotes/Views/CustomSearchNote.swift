@@ -25,7 +25,7 @@ struct CustomSearchNote: View {
                 .padding(.trailing, 16.0)
         }
         .background(
-            Color.Resolved(red: 255/255, green: 228/255, blue: 176/255)
+            Color("yellow")
         )
         .clipShape(
             RoundedRectangle(cornerRadius: 8.0)

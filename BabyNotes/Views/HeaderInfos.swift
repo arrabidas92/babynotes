@@ -13,7 +13,7 @@ struct HeaderInfos: View {
             VStack(alignment: .leading, spacing: 8.0, content: {
                 Text("Hello, Alex!")
                     .font(.title3)
-                    .foregroundStyle(Color.Resolved(red: 181/255, green: 181/255, blue: 181/255))
+                    .foregroundStyle(Color.gray.secondary)
                     .bold()
                 Text("My Notes")
                     .font(.largeTitle)
