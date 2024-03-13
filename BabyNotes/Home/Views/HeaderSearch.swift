@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct CustomSearchNote: View {
+struct HeaderSearch: View {
     @Binding var search: String
     
     var body: some View {
@@ -35,5 +35,5 @@ struct CustomSearchNote: View {
 }
 
 #Preview {
-    CustomSearchNote(search: .constant(""))
+    HeaderSearch(search: .constant(""))
 }

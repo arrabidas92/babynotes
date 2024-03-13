@@ -15,7 +15,7 @@ struct HeaderNote: View {
             HeaderInfos()
             Spacer()
                 .frame(height: 32.0)
-            CustomSearchNote(search: $search)
+            HeaderSearch(search: $search)
         })
         .padding(32.0)
         .background(Color.white.shadow(color: Color.black.opacity(0.04), radius: 10, x: 0, y: 15))
