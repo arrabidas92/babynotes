@@ -25,7 +25,7 @@ struct HeaderSearch: View {
                 .padding(.trailing, 16.0)
         }
         .background(
-            Color("yellow")
+            Color("babyYellow")
         )
         .clipShape(
             RoundedRectangle(cornerRadius: 8.0)

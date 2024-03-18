@@ -11,7 +11,10 @@ import SwiftUI
 struct BabyNotesApp: App {
     var body: some Scene {
         WindowGroup {
-            HomeNote()
+            NavigationStack {
+                HomeNote()
+            }
+            .tint(Color.black)
         }
     }
 }
