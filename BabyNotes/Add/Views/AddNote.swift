@@ -6,50 +6,38 @@
 //
 
 import SwiftUI
-
+//TODO: Refactor Image to reuse same one injecting system name string
+//TODO: change back title to french one
+//TODO: save note using SwiftData to have them locally
 struct AddNote: View {
-    @State private var selectedCategory = Category.health
-    @State private var noteTitle: String = ""
-    @State private var noteContent: String = "Contenu"
-    @FocusState private var isFocused: Bool
+    @State private var vm = ViewModel()
     
     var body: some View {
-        VStack(alignment: .leading) {
-            //Replace with text editor for title to have multi line titles
-            TextField(
-                "",
-                text: $noteTitle,
-                prompt:
-                    Text("Titre")
-                    .foregroundStyle(Color.gray)
-            )
-            .foregroundStyle(Color.black)
-            .font(.title2)
-            .padding(.horizontal, 20.0)
-            .lineLimit(nil)
-            
-            TextEditor(text: $noteContent)
-                .focused($isFocused)
-                .foregroundStyle(Color.gray)
-                .font(.headline)
-                .padding(.horizontal, 16.0)
-                .onChange(of: isFocused) { _, isFocused in
-                    if isFocused {
-                        noteContent = ""
-                    } else if noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        noteContent = "Contenu"
-                    }
-                }
+        ZStack(alignment: .bottomTrailing) {
+            VStack(alignment: .leading) {
+                TitleTextField(title: $vm.noteTitle, nbLimitCaracters: 50)
+                ContentTextEditor(content: $vm.noteContent)
+            }
+            Button {
+                print(vm.noteTitle)
+            } label: {
+                Image(systemName: "arrow.triangle.2.circlepath")//TO refactor
+                    .tint(Color.white)
+                    .frame(width: 50, height: 50)
+                    .background(Color.black)
+                    .clipShape(Circle())
+                    .overlay(content: {
+                        Circle()
+                            .stroke(.white, lineWidth: 2)
+                    })
+            }
+            .padding(.trailing, 32)
+
         }
-        .navigationTitle("Add a note")
+        .navigationTitle("Créer une note")
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
-                Picker("Category", selection: $selectedCategory) {
-                    ForEach(Category.allCases, id: \.self) { category in
-                        Text(category.title)
-                    }
-                }
-                .pickerStyle(.automatic)
+                CategoryPicker(selectedCategory: $vm.selectedCategory)
             }
         }
     }
