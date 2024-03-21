@@ -9,8 +9,16 @@ import SwiftUI
 
 extension AddNote {
     @Observable class ViewModel {
-        var selectedCategory = Category.health
+        var selectedCategory: Category? = nil
         var noteTitle: String = ""
         var noteContent: String = "Contenu"
+        
+        var backgroundColor: Color {
+            if let selectedCategory = selectedCategory {
+                return selectedCategory.color
+            } else {
+                return Color.white
+            }
+        }
     }
 }

@@ -6,38 +6,43 @@
 //
 
 import SwiftUI
-//TODO: Refactor Image to reuse same one injecting system name string
-//TODO: change back title to french one
-//TODO: save note using SwiftData to have them locally
+
 struct AddNote: View {
     @State private var vm = ViewModel()
     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(alignment: .leading) {
-                TitleTextField(title: $vm.noteTitle, nbLimitCaracters: 50)
-                ContentTextEditor(content: $vm.noteContent)
+                CategoryScrollView(
+                    selectedCategory: $vm.selectedCategory
+                )
+                .padding(.top, 8.0)
+                TitleTextField(
+                    placeholder: "Titre",
+                    title: $vm.noteTitle,
+                    nbLimitCaracters: 50
+                )
+                .padding(.horizontal, 20.0)
+                .padding(.top, 12.0)
+                
+                ContentTextEditor(
+                    placeholder: "Contenu",
+                    content: $vm.noteContent
+                )
+                .padding(.horizontal, 16.0)
             }
-            Button {
-                print(vm.noteTitle)
-            } label: {
-                Image(systemName: "arrow.triangle.2.circlepath")//TO refactor
-                    .tint(Color.white)
-                    .frame(width: 50, height: 50)
-                    .background(Color.black)
-                    .clipShape(Circle())
-                    .overlay(content: {
-                        Circle()
-                            .stroke(.white, lineWidth: 2)
-                    })
-            }
-            .padding(.trailing, 32)
-
         }
+        .background(vm.backgroundColor)
         .navigationTitle("Créer une note")
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
-                CategoryPicker(selectedCategory: $vm.selectedCategory)
+                Button {
+                    print("Save note")
+                    //TODO: save note using SwiftData to have them locally
+                    //TODO: fetch notes in home principal
+                } label: {
+                    Text("Sauvegarder")
+                }
             }
         }
     }

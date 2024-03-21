@@ -25,9 +25,17 @@ struct HomeNote: View {
             NavigationLink(
                 destination: AddNote()
             ) {
-                AddNoteButton()
-                    .padding(.trailing, 32)
+                SystemIconButton(
+                    systemImageName: "pencil.and.scribble",
+                    width: 50,
+                    tint: .white,
+                    background: Color.black
+                )
+                .padding(.trailing, 32)
             }
+            .navigationTitle("Accueil")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar(.hidden)
         })
     }
 }

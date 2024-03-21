@@ -8,24 +8,26 @@
 import SwiftUI
 
 struct ContentTextEditor: View {
+    let placeholder: String
     @Binding var content: String
     @FocusState private var isFocused: Bool
     
     var body: some View {
         TextEditor(text: $content)
             .focused($isFocused)
-            .foregroundStyle(Color.gray)
+            .foregroundStyle(Color.black)
             .font(.headline)
-            .padding(.horizontal, 16.0)
             .onChange(of: isFocused) { updateContent(on: $1) }
+            .scrollContentBackground(.hidden)
+            .onDisappear { content = placeholder }
     }
     
     func updateContent(on focus: Bool) {
         if focus {
-            content = content == "Contenu" ? "" : content
+            content = content == placeholder ? "" : content
         } else {
             let isContentEmpty = content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
-            content = isContentEmpty ? "Contenu" : content
+            content = isContentEmpty ? placeholder : content
         }
     }
 }
