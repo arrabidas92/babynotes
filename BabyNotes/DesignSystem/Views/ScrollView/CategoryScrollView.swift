@@ -16,7 +16,11 @@ struct CategoryScrollView: View {
                 ForEach(Category.allCases, id: \.self) { category in
                     Text(category.title)
                         .onTapGesture {
-                            selectedCategory = category
+                            if category == selectedCategory {
+                                selectedCategory = nil
+                            } else {
+                                selectedCategory = category
+                            }
                         }
                         .foregroundStyle(.black)
                         .font(.callout)

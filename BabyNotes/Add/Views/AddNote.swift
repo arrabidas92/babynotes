@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddNote: View {
+    @Environment(\.modelContext) private var context
     @State private var vm = ViewModel()
     
     var body: some View {
@@ -37,12 +38,19 @@ struct AddNote: View {
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
                 Button {
-                    print("Save note")
+                    let newNote = Note(
+                        title: vm.noteTitle,
+                        content: vm.noteContent,
+                        category: vm.selectedCategory
+                    )
+                    
+                    print(newNote.description)
                     //TODO: save note using SwiftData to have them locally
                     //TODO: fetch notes in home principal
                 } label: {
                     Text("Sauvegarder")
                 }
+                .disabled(!vm.noteCanBeSaved)
             }
         }
     }

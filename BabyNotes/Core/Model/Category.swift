@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum Category: String, CaseIterable {
+enum Category: String, CaseIterable, Codable {
     case health, food, hygiene, furnitures, relax, night, awakening, baby_sitting
 }
 

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct BabyNotesApp: App {
@@ -16,5 +17,6 @@ struct BabyNotesApp: App {
             }
             .tint(Color.black)
         }
+        .modelContainer(for: [Note.self])
     }
 }

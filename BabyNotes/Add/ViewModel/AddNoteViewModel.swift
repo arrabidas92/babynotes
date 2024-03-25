@@ -20,5 +20,11 @@ extension AddNote {
                 return Color.white
             }
         }
+        
+        var noteCanBeSaved: Bool {
+            let hasTitle = !noteTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            let hasContent = !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && noteContent != "Contenu"
+            return hasTitle && hasContent
+        }
     }
 }
