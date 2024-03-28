@@ -17,16 +17,15 @@ struct HeaderSearch: View {
                 text: $search,
                 prompt:
                     Text("Search a note")
-                    .foregroundStyle(Color.black)
+                    .foregroundStyle(Color.white)
             )
-            .foregroundStyle(Color.black)
+            .foregroundStyle(Color.white)
             .padding(16.0)
             Image(systemName: "magnifyingglass")
                 .padding(.trailing, 16.0)
+                .foregroundStyle(Color.white)
         }
-        .background(
-            Color("babyYellow")
-        )
+        .background(Color.black)
         .clipShape(
             RoundedRectangle(cornerRadius: 8.0)
         )

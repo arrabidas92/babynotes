@@ -13,15 +13,17 @@ import SwiftData
     var title: String
     var content: String
     var category: Category?
+    var updatedAt: TimeInterval
     
     init(title: String, content: String, category: Category?) {
         self.id = UUID()
         self.title = title
         self.content = content
         self.category = category
+        self.updatedAt = Date().timeIntervalSince1970
     }
     
     var description: String {
-        return "Note id = \(id), title = \(title), content = \(content), category = \(String(describing: category))"
+        return "Note id = \(id), title = \(title), content = \(content), category = \(String(describing: category)), updatedAt = \(updatedAt)"
     }
 }

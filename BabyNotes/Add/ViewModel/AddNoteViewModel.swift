@@ -26,5 +26,13 @@ extension AddNote {
             let hasContent = !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && noteContent != "Contenu"
             return hasTitle && hasContent
         }
+        
+        var currentNote: Note {
+            Note(
+                title: noteTitle,
+                content: noteContent,
+                category: selectedCategory
+            )
+        }
     }
 }
