@@ -8,7 +8,7 @@
 import Foundation
 import SwiftData
 
-@Model class Note {
+@Model class Note: Hashable {
     @Attribute(.unique) var id: UUID
     var title: String
     var content: String

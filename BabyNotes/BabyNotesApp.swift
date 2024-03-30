@@ -10,13 +10,23 @@ import SwiftData
 
 @main
 struct BabyNotesApp: App {
+    let container: ModelContainer
+    
     var body: some Scene {
         WindowGroup {
             NavigationStack {
-                HomeNote()
+                HomeNote(modelContext: container.mainContext)
             }
             .tint(Color.black)
         }
-        .modelContainer(for: [Note.self])
+        .modelContainer(container)
+    }
+                        
+    init() {
+        do {
+            container = try ModelContainer(for: Note.self)
+        } catch {
+            fatalError("Failed to create ModelContainer for Movie.")
+        }
     }
 }

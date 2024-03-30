@@ -9,25 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeNote: View {
-    @Environment(\.modelContext) private var context
-    
-    var recentNotes: [Note] {
-        var fetchDescriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
-        fetchDescriptor.fetchLimit = 5
-        
-        do {
-            let notes = try context.fetch(fetchDescriptor)
-            
-            for note in notes {
-                print("Found \(note.description)")
-            }
-            
-            return notes
-        } catch {
-            print("Failed to load recent Notes.")
-            return []
-        }
-    }
+    @State private var vm: ViewModel
     
     var body: some View {
         GeometryReader { geometry in
@@ -43,25 +25,8 @@ struct HomeNote: View {
                                 trailing: 32
                             )
                         )
-                    //Add list of swift data notes
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 16.0) {
-                            ForEach(recentNotes, id: \.id) { note in
-                                
-                                NoteCard(note: note)
-                                    .frame(width: geometry.size.width / 2)
-                            }
-                        }
-                        .padding(
-                            EdgeInsets(
-                                top: 8,
-                                leading: 32,
-                                bottom: 8,
-                                trailing: 32
-                            )
-                        )
-                    }
-                    
+                    //TODO: Fix scroll view position when adding new note should scroll to the first one
+                    RecentNoteList(width: geometry.size.width / 2, data: $vm.recent, scrollPosition: .constant(3))
                 }
                 NavigationLink(
                     destination: AddNote()
@@ -79,9 +44,15 @@ struct HomeNote: View {
                 .toolbar(.hidden)
             })
         }
+        .onAppear { vm.fetchRecentNotes() }
+    }
+    
+    init(modelContext: ModelContext) {
+        vm = ViewModel(modelContext: modelContext)
     }
 }
 
 #Preview {
-    HomeNote()
+    let container = try! ModelContainer(for: Note.self)
+    return HomeNote(modelContext: container.mainContext)
 }
