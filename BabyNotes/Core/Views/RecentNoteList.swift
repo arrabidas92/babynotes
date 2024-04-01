@@ -9,28 +9,36 @@ import SwiftUI
 
 struct RecentNoteList: View {
     let width: Double
+    
     @Binding var data: [Note]
-    @Binding var scrollPosition: Int?
+    @Binding var hasAddedRecentNote: Bool
     
     var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 16.0) {
-                ForEach(data, id: \.id) { note in
-                    NoteCard(note: note)
-                        .frame(width: width)
+        ScrollViewReader { value in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 16.0) {
+                    ForEach(data.indices, id: \.self) { idx in
+                        NoteCard(note: data[idx])
+                            .frame(width: width)
+                            .id(idx)
+                    }
                 }
-            }
-            .padding(
-                EdgeInsets(
-                    top: 8,
-                    leading: 32,
-                    bottom: 8,
-                    trailing: 32
+                .padding(
+                    EdgeInsets(
+                        top: 8,
+                        leading: 32,
+                        bottom: 8,
+                        trailing: 32
+                    )
                 )
-            )
-            .scrollTargetLayout()
+            }
+            .onAppear { scrollToLatestNote(value) }
         }
-        .scrollPosition(id: $scrollPosition)
+    }
+    
+    private func scrollToLatestNote(_ value: ScrollViewProxy) {
+        guard hasAddedRecentNote else { return }
+        value.scrollTo(0, anchor: .trailing)
     }
 }
 
@@ -40,6 +48,6 @@ struct RecentNoteList: View {
         data: .constant([
             .init(title: "1", content: "kfjddjfdjkjfd", category: .health),
             .init(title: "2", content: "skklsdkldsklds", category: .awakening)
-        ]), scrollPosition: .constant(0)
+        ]), hasAddedRecentNote: .constant(false)
     )
 }

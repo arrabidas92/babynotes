@@ -33,6 +33,14 @@ struct HeaderSection: View {
                 }
             }
         }
+        .padding(
+            EdgeInsets(
+                top: 16,
+                leading: 32,
+                bottom: 8,
+                trailing: 32
+            )
+        )
     }
 }
 

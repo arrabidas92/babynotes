@@ -17,19 +17,14 @@ struct HomeNote: View {
                 ScrollView {
                     HeaderNote()
                     HeaderSection(style: .text)
-                        .padding(
-                            EdgeInsets(
-                                top: 16,
-                                leading: 32,
-                                bottom: 8,
-                                trailing: 32
-                            )
-                        )
-                    //TODO: Fix scroll view position when adding new note should scroll to the first one
-                    RecentNoteList(width: geometry.size.width / 2, data: $vm.recent, scrollPosition: .constant(3))
+                    RecentNoteList(
+                        width: geometry.size.width / 2,
+                        data: $vm.recentNote,
+                        hasAddedRecentNote: $vm.hasAddedRecentNote
+                    )
                 }
                 NavigationLink(
-                    destination: AddNote()
+                    destination: AddNote(hasAddedRecentNote: $vm.hasAddedRecentNote)
                 ) {
                     SystemIconButton(
                         systemImageName: "pencil.and.scribble",
@@ -45,6 +40,7 @@ struct HomeNote: View {
             })
         }
         .onAppear { vm.fetchRecentNotes() }
+        .onDisappear { vm.hasAddedRecentNote = false }
     }
     
     init(modelContext: ModelContext) {

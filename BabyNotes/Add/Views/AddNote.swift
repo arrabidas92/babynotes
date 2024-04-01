@@ -10,8 +10,9 @@ import SwiftUI
 struct AddNote: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
+    @Binding var hasAddedRecentNote: Bool
     @State private var vm = ViewModel()
-    
+     
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(alignment: .leading) {
@@ -40,6 +41,7 @@ struct AddNote: View {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
                 Button {
                     context.insert(vm.currentNote)
+                    hasAddedRecentNote = true
                     dismiss()
                 } label: {
                     Text("Sauvegarder")
@@ -51,5 +53,5 @@ struct AddNote: View {
 }
 
 #Preview {
-    AddNote()
+    AddNote(hasAddedRecentNote: .constant(false))
 }

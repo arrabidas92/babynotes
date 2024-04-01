@@ -11,8 +11,8 @@ import SwiftData
 extension HomeNote {
     @Observable class ViewModel {
         var modelContext: ModelContext
-        var recent: [Note] = []
-        var recentScrollPosition: Int = 0
+        var recentNote: [Note] = []
+        var hasAddedRecentNote: Bool = false
         
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -20,10 +20,12 @@ extension HomeNote {
         }
         
         func fetchRecentNotes() {
+            guard recentNote.isEmpty || hasAddedRecentNote else { return }
+            print("HomeNoteVM::fetchRecentNotes")
             do {
                 var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
                 descriptor.fetchLimit = 5
-                recent = try modelContext.fetch(descriptor)
+                recentNote = try modelContext.fetch(descriptor)
             } catch {
                 print("Fetch failed")
                 //TODO: Implement better error management
