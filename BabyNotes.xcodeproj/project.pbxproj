@@ -19,6 +19,8 @@
 		B4D645AA2BA98505008892F2 /* AddNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D645A92BA98505008892F2 /* AddNoteViewModel.swift */; };
 		B4D645AC2BA99175008892F2 /* TitleTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D645AB2BA99175008892F2 /* TitleTextField.swift */; };
 		B4D645B02BA9A85D008892F2 /* ContentTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D645AF2BA9A85D008892F2 /* ContentTextEditor.swift */; };
+		B4E7B2812BBAB2CB00FBF22B /* NoteCategoryEmoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7B2802BBAB2CB00FBF22B /* NoteCategoryEmoji.swift */; };
+		B4E7B2832BBAB59700FBF22B /* NoteCategoryCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E7B2822BBAB59700FBF22B /* NoteCategoryCard.swift */; };
 		B4EE23C02BB8106800A789FE /* HomeNoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE23BF2BB8106800A789FE /* HomeNoteViewModel.swift */; };
 		B4EE23C22BB8167500A789FE /* RecentNoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4EE23C12BB8167500A789FE /* RecentNoteList.swift */; };
 		B4F8F9F42B95FFDF00A3736B /* BabyNotesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4F8F9F32B95FFDF00A3736B /* BabyNotesApp.swift */; };
@@ -43,6 +45,8 @@
 		B4D645A92BA98505008892F2 /* AddNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNoteViewModel.swift; sourceTree = "<group>"; };
 		B4D645AB2BA99175008892F2 /* TitleTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleTextField.swift; sourceTree = "<group>"; };
 		B4D645AF2BA9A85D008892F2 /* ContentTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentTextEditor.swift; sourceTree = "<group>"; };
+		B4E7B2802BBAB2CB00FBF22B /* NoteCategoryEmoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCategoryEmoji.swift; sourceTree = "<group>"; };
+		B4E7B2822BBAB59700FBF22B /* NoteCategoryCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCategoryCard.swift; sourceTree = "<group>"; };
 		B4EE23BF2BB8106800A789FE /* HomeNoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNoteViewModel.swift; sourceTree = "<group>"; };
 		B4EE23C12BB8167500A789FE /* RecentNoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentNoteList.swift; sourceTree = "<group>"; };
 		B4F8F9F02B95FFDF00A3736B /* BabyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BabyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -148,6 +152,8 @@
 			children = (
 				B46710732BB5AC16007BF425 /* NoteCard.swift */,
 				B4EE23C12BB8167500A789FE /* RecentNoteList.swift */,
+				B4E7B2802BBAB2CB00FBF22B /* NoteCategoryEmoji.swift */,
+				B4E7B2822BBAB59700FBF22B /* NoteCategoryCard.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -325,6 +331,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B4D645AA2BA98505008892F2 /* AddNoteViewModel.swift in Sources */,
+				B4E7B2812BBAB2CB00FBF22B /* NoteCategoryEmoji.swift in Sources */,
 				B4A41BC62BA09237008BE234 /* HeaderStyle.swift in Sources */,
 				B42E271F2BA870E4004EBB3C /* Category.swift in Sources */,
 				B4EE23C22BB8167500A789FE /* RecentNoteList.swift in Sources */,
@@ -341,6 +348,7 @@
 				B4C4A4AF2BB1B5E200E67370 /* Note.swift in Sources */,
 				B4F8FA072B9613EF00A3736B /* HeaderInfos.swift in Sources */,
 				B4D645AC2BA99175008892F2 /* TitleTextField.swift in Sources */,
+				B4E7B2832BBAB59700FBF22B /* NoteCategoryCard.swift in Sources */,
 				B46440952BAC7019007531BF /* CategoryScrollView.swift in Sources */,
 				B4A993AC2BA1DAFA00C7847B /* AddNote.swift in Sources */,
 			);

@@ -8,5 +8,5 @@
 import Foundation
 
 enum HeaderStyle {
-    case text, cta
+    case text, cta, none
 }

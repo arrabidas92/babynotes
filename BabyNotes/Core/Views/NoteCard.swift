@@ -6,8 +6,7 @@
 //
 
 import SwiftUI
-//TODO:Continuer UI
-//TODO:Voir refresh à la création d'une nouvelle note pour rafraichir l'écran
+
 struct NoteCard: View {
     let note: Note
     

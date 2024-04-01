@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct HeaderSection: View {
+    let title: String
     let style: HeaderStyle
     
     var body: some View {
         HStack {
-            Text("Recent")
+            Text(title)
                 .font(.headline)
             Spacer()
             switch style {
@@ -31,11 +32,13 @@ struct HeaderSection: View {
                     Image(systemName: "plus.app")
                         .tint(Color.black)
                 }
+            case .none:
+                EmptyView()
             }
         }
         .padding(
             EdgeInsets(
-                top: 16,
+                top: 8,
                 leading: 32,
                 bottom: 8,
                 trailing: 32
@@ -45,5 +48,5 @@ struct HeaderSection: View {
 }
 
 #Preview {
-    HeaderSection(style: .text)
+    HeaderSection(title: "Recent", style: .text)
 }

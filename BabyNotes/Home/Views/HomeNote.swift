@@ -16,12 +16,23 @@ struct HomeNote: View {
             ZStack(alignment: .bottomTrailing, content: {
                 ScrollView {
                     HeaderNote()
-                    HeaderSection(style: .text)
+                    HeaderSection(title: "Recent", style: .text)
                     RecentNoteList(
                         width: geometry.size.width / 2,
                         data: $vm.recentNote,
                         hasAddedRecentNote: $vm.hasAddedRecentNote
                     )
+                    HeaderSection(title: "Category", style: .none)
+                    //TODO: Fetch all categories and displayed them
+                    NoteCategoryCard(category: .health)
+                        .padding(
+                            EdgeInsets(
+                                top: 8,
+                                leading: 32,
+                                bottom: 8,
+                                trailing: 32
+                            )
+                        )
                 }
                 NavigationLink(
                     destination: AddNote(hasAddedRecentNote: $vm.hasAddedRecentNote)

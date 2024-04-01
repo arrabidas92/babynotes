@@ -53,4 +53,25 @@ extension Category {
             return Color("babyDarkPink")
         }
     }
+    
+    var emoji: String {
+        switch self {
+        case .health:
+            return "❤️"
+        case .food:
+            return "🥗"
+        case .hygiene:
+            return "🛁"
+        case .furnitures:
+            return "📦"
+        case .relax:
+            return "😌"
+        case .night:
+            return "🌙"
+        case .awakening:
+            return "💭"
+        case .baby_sitting:
+            return "👩‍🍼"
+        }
+    }
 }
