@@ -21,11 +21,11 @@ struct NoteCard: View {
             Spacer()
         })
         .padding(16.0)
-        .background(note.category?.color)
+        .background(note.categoryColor.color)
         .clipShape(
             RoundedRectangle(cornerRadius: 16.0)
         )
-        .shadow(color: note.category?.color ?? Color.black, radius: 4)
+        .shadow(color: note.categoryColor.color, radius: 4)
     }
 }
 

@@ -33,24 +33,24 @@ extension Category {
         }
     }
     
-    var color: Color {
+    var colorName: String {
         switch self {
         case .health:
-            return Color("babyBlue")
+            return "babyBlue"
         case .food:
-            return Color("babyOrange")
+            return "babyOrange"
         case .hygiene:
-            return Color("babyTeal")
+            return "babyTeal"
         case .furnitures:
-            return Color("babyPink")
+            return "babyPink"
         case .relax:
-            return Color("babyIndigo")
+            return "babyIndigo"
         case .night:
-            return Color("babyDarkBlue")
+            return "babyDarkBlue"
         case .awakening:
-            return Color("babyYellow")
+            return "babyYellow"
         case .baby_sitting:
-            return Color("babyDarkPink")
+            return "babyDarkPink"
         }
     }
     

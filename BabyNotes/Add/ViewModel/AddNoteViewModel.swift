@@ -15,7 +15,7 @@ extension AddNote {
         
         var backgroundColor: Color {
             if let selectedCategory = selectedCategory {
-                return selectedCategory.color
+                return selectedCategory.colorName.color
             } else {
                 return Color.white
             }
@@ -24,15 +24,27 @@ extension AddNote {
         var noteCanBeSaved: Bool {
             let hasTitle = !noteTitle.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
             let hasContent = !noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty && noteContent != "Contenu"
-            return hasTitle && hasContent
+            let hasCategory = selectedCategory != nil
+            return hasTitle && hasContent && hasCategory
         }
         
-        var currentNote: Note {
-            Note(
+        @ObservationIgnored
+        private let repository: NoteRepository
+        
+        init(repository: NoteRepository = NoteRepositoryImpl.shared) {
+            self.repository = repository
+        }
+        
+        func addNote() {
+            guard let category = selectedCategory else { return }
+            
+            let newNote = Note(
                 title: noteTitle,
                 content: noteContent,
-                category: selectedCategory
+                category: category
             )
+            
+            repository.addNote(newNote)
         }
     }
 }

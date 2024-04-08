@@ -12,18 +12,24 @@ import SwiftData
     @Attribute(.unique) var id: UUID
     var title: String
     var content: String
-    var category: Category?
+    var idCategory: String
+    var categoryTitle: String
+    var categoryColor: String
+    var categoryEmoji: String
     var updatedAt: TimeInterval
     
-    init(title: String, content: String, category: Category?) {
+    init(title: String, content: String, category: Category) {
         self.id = UUID()
         self.title = title
         self.content = content
-        self.category = category
+        self.idCategory = category.rawValue
+        self.categoryTitle = category.title
+        self.categoryColor = category.colorName
+        self.categoryEmoji = category.emoji
         self.updatedAt = Date().timeIntervalSince1970
     }
     
     var description: String {
-        return "Note id = \(id), title = \(title), content = \(content), category = \(String(describing: category)), updatedAt = \(updatedAt)"
+        return "Note id = \(id), title = \(title), content = \(content), idCategory = \(idCategory), idCategory = \(categoryTitle), categoryColor = \(categoryColor), categoryEmoji = \(categoryEmoji), updatedAt = \(updatedAt)"
     }
 }

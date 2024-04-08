@@ -9,7 +9,7 @@ import SwiftUI
 import SwiftData
 
 struct HomeNote: View {
-    @State private var vm: ViewModel
+    @State private var vm = ViewModel()
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,7 +23,7 @@ struct HomeNote: View {
                         hasAddedRecentNote: $vm.hasAddedRecentNote
                     )
                     HeaderSection(title: "Category", style: .none)
-                    NoteCategoryList()
+                    NoteCategoryList(hasAddedRecentNote: $vm.hasAddedRecentNote)
                 }
                 .safeAreaPadding(.bottom, 66)
                 .scrollIndicators(.hidden)
@@ -47,13 +47,8 @@ struct HomeNote: View {
         .onAppear { vm.fetchRecentNotes() }
         .onDisappear { vm.hasAddedRecentNote = false }
     }
-    
-    init(modelContext: ModelContext) {
-        vm = ViewModel(modelContext: modelContext)
-    }
 }
 
 #Preview {
-    let container = try! ModelContainer(for: Note.self)
-    return HomeNote(modelContext: container.mainContext)
+    HomeNote()
 }

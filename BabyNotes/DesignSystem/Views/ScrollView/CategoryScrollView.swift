@@ -31,7 +31,7 @@ struct CategoryScrollView: View {
                                     Color.black,
                                     lineWidth: 0.8
                                 )
-                            .background(category.color)
+                                .background(category.colorName.color)
                         )
                         .clipShape(Capsule())
                         .opacity(

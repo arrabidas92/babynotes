@@ -40,7 +40,7 @@ struct AddNote: View {
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
                 Button {
-                    context.insert(vm.currentNote)
+                    vm.addNote()
                     hasAddedRecentNote = true
                     dismiss()
                 } label: {
