@@ -10,6 +10,7 @@ import SwiftUI
 struct HeaderSection: View {
     let title: String
     let style: HeaderStyle
+    let action: (() -> ())?
     
     var body: some View {
         HStack {
@@ -19,7 +20,7 @@ struct HeaderSection: View {
             switch style {
             case .text:
                 Button {
-                    //TODO: implement action du bouton
+                    action?()
                 } label: {
                     Text("See all")
                         .font(.footnote)
@@ -27,7 +28,7 @@ struct HeaderSection: View {
                 }
             case .cta:
                 Button(action: {
-                    // Action du bouton
+                    action?()
                 }) {
                     Image(systemName: "plus.app")
                         .tint(Color.black)
@@ -48,5 +49,9 @@ struct HeaderSection: View {
 }
 
 #Preview {
-    HeaderSection(title: "Recent", style: .text)
+    HeaderSection(
+        title: "Recent",
+        style: .text,
+        action: nil
+    )
 }

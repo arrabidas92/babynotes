@@ -24,7 +24,7 @@ extension NoteCategoryCard {
         
         func fetchNumberOfNotes(idCategory: String, hasAddedRecentNote: Bool) {
             guard hasAddedRecentNote else { return }
-            print("fetchNumberOfNotes")
+            
             numberOfNotes = repository.fetchNumberOfNotes(idCategory: idCategory)
         }
     }

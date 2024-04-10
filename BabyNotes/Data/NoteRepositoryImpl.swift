@@ -20,9 +20,9 @@ final class NoteRepositoryImpl: NoteRepository {
         self.context = container.mainContext
     }
 
-    func fetchRecentNotes() -> [Note] {
+    func fetchNotes(limit: Int) -> [Note] {
         var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
-        descriptor.fetchLimit = 5
+        descriptor.fetchLimit = limit
         guard let notes = try? context.fetch(descriptor) else {
             return []
         }

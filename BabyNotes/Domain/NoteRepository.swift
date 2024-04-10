@@ -8,7 +8,7 @@
 import Foundation
 
 protocol NoteRepository {
-    func fetchRecentNotes() -> [Note]
+    func fetchNotes(limit: Int) -> [Note]
     func addNote(_ note: Note)
     func fetchNumberOfNotes(idCategory: String) -> Int
 }

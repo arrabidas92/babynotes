@@ -21,8 +21,8 @@ extension HomeNote {
         
         func fetchRecentNotes() {
             guard recentNote.isEmpty || hasAddedRecentNote else { return }
-            print("HomeNoteVM::fetchRecentNotes")
-            recentNote = repository.fetchRecentNotes()
+            
+            recentNote = repository.fetchNotes(limit: 5)
         }
     }
 }
