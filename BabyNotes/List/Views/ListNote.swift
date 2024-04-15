@@ -8,13 +8,14 @@
 import SwiftUI
 //TODO:Continue try adding pagination
 struct ListNote: View {
-    @State private var vm = ViewModel()
+    @Environment(\.modelContext) private var context
+    @State private var model = Model()
     
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 16.0) {
-                ForEach(vm.notes.indices, id: \.self) { idx in
-                    NoteCard(note: vm.notes[idx])
+                ForEach(model.notes.indices, id: \.self) { idx in
+                    NoteCard(note: model.notes[idx])
                         .frame(maxWidth: .infinity)
                         .id(idx)
                 }
@@ -28,7 +29,7 @@ struct ListNote: View {
                 )
             )
         }
-        .onAppear { vm.fetchNotes() }
+        .onAppear { model.fetchNotes(from: context) }
     }
 }
 

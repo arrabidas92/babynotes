@@ -13,7 +13,9 @@ import SwiftData
 //Check how to pass hasAddedRecentNote to decouple from route
 struct HomeNote: View {
     @Bindable var router: RouterImpl
-    @State private var vm = ViewModel()
+    @Binding var hasAddedRecentNote: Bool
+    @Environment(\.modelContext) private var context
+    @State private var model = Model()
     
     var body: some View {
         GeometryReader { geometry in
@@ -28,15 +30,15 @@ struct HomeNote: View {
                     }
                     RecentNoteList(
                         width: geometry.size.width / 2,
-                        data: $vm.recentNote,
-                        hasAddedRecentNote: $vm.hasAddedRecentNote
+                        data: $model.recentNote,
+                        hasAddedRecentNote: $hasAddedRecentNote
                     )
                     HeaderSection(
                         title: "Category",
                         style: .none,
                         action: nil
                     )
-                    NoteCategoryList(hasAddedRecentNote: $vm.hasAddedRecentNote)
+                    NoteCategoryList(hasAddedRecentNote: $hasAddedRecentNote)
                 }
                 .safeAreaPadding(.bottom, 66)
                 .scrollIndicators(.hidden)
@@ -54,16 +56,19 @@ struct HomeNote: View {
             })
             .onAppear {
                 Logger.viewCycle.notice("homeNote::appeared")
-                vm.fetchRecentNotes()
+                model.fetchRecentNotes(from: context, hasAddedRecentNote: hasAddedRecentNote)
             }
             .onDisappear {
                 Logger.viewCycle.notice("homeNote:: disappeared")
-                vm.hasAddedRecentNote = false
+                hasAddedRecentNote = false
             }
         }
     }
 }
 
 #Preview {
-    HomeNote(router: RouterImpl())
+    HomeNote(
+        router: RouterImpl(),
+        hasAddedRecentNote: .constant(false)
+    )
 }

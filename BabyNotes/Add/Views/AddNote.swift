@@ -11,18 +11,18 @@ struct AddNote: View {
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
     @Binding var hasAddedRecentNote: Bool
-    @State private var vm = ViewModel()
+    @State private var model = Model()
      
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(alignment: .leading) {
                 CategoryScrollView(
-                    selectedCategory: $vm.selectedCategory
+                    selectedCategory: $model.selectedCategory
                 )
                 .padding(.top, 8.0)
                 TitleTextField(
                     placeholder: "Titre",
-                    title: $vm.noteTitle,
+                    title: $model.noteTitle,
                     nbLimitCaracters: 50
                 )
                 .padding(.horizontal, 20.0)
@@ -30,23 +30,23 @@ struct AddNote: View {
                 
                 ContentTextEditor(
                     placeholder: "Contenu",
-                    content: $vm.noteContent
+                    content: $model.noteContent
                 )
                 .padding(.horizontal, 16.0)
             }
         }
-        .background(vm.backgroundColor)
+        .background(model.backgroundColor)
         .navigationTitle("Créer une note")
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
                 Button {
-                    vm.addNote()
+                    model.addNote(from: context)
                     hasAddedRecentNote = true
                     dismiss()
                 } label: {
                     Text("Sauvegarder")
                 }
-                .disabled(!vm.noteCanBeSaved)
+                .disabled(!model.noteCanBeSaved)
             }
         }
     }

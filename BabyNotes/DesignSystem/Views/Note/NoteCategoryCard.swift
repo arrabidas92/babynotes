@@ -9,14 +9,15 @@ import SwiftUI
 
 struct NoteCategoryCard: View {
     let category: Category
-    @State private var vm = ViewModel()
     @Binding var hasAddedRecentNote: Bool
+    @Environment(\.modelContext) private var context
+    @State private var model = Model()
     
     var body: some View {
         HStack(spacing: 16.0) {
             NoteCategoryEmoji(emoji: category.emoji)
             VStack(alignment: .leading) {
-                Text("\(vm.numberOfNotes) \(vm.numberOfNotesText)")
+                Text("\(model.numberOfNotes) \(model.numberOfNotesText)")
                     .font(.footnote)
                 Text(category.title)
                     .font(.callout)
@@ -31,9 +32,9 @@ struct NoteCategoryCard: View {
         )
         .shadow(color: category.colorName.color, radius: 4)
         .onFirstAppear {
-            vm.fetchNumberOfNotes(idCategory: category.rawValue, hasAddedRecentNote: true)
+            model.fetchNumberOfNotes(context: context, idCategory: category.rawValue, hasAddedRecentNote: true)
         }
-        .onAppear { vm.fetchNumberOfNotes(idCategory: category.rawValue, hasAddedRecentNote: hasAddedRecentNote)}
+        .onAppear { model.fetchNumberOfNotes(context: context, idCategory: category.rawValue, hasAddedRecentNote: hasAddedRecentNote)}
     }
 }
 

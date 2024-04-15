@@ -1,14 +1,15 @@
 //
-//  AddNoteViewModel.swift
+//  AddNoteModel.swift
 //  BabyNotes
 //
 //  Created by Alexandre DUARTE on 19/03/2024.
 //
 
 import SwiftUI
+import SwiftData
 
 extension AddNote {
-    @Observable class ViewModel {
+    @Observable class Model {
         var selectedCategory: Category? = nil
         var noteTitle: String = ""
         var noteContent: String = "Contenu"
@@ -28,14 +29,7 @@ extension AddNote {
             return hasTitle && hasContent && hasCategory
         }
         
-        @ObservationIgnored
-        private let repository: NoteRepository
-        
-        init(repository: NoteRepository = NoteRepositoryImpl.shared) {
-            self.repository = repository
-        }
-        
-        func addNote() {
+        func addNote(from context: ModelContext) {
             guard let category = selectedCategory else { return }
             
             let newNote = Note(
@@ -44,7 +38,7 @@ extension AddNote {
                 category: category
             )
             
-            repository.addNote(newNote)
+            context.insert(newNote)
         }
     }
 }

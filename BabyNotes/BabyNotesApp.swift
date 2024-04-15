@@ -10,14 +10,19 @@ import SwiftUI
 @main
 struct BabyNotesApp: App {
     @State private var router = RouterImpl()
+    @State private var hasAddedRecentNote: Bool = false
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.navPath) {
-                HomeNote(router: router)
-                    .navigationDestination(for: Route.self) { navigate(to: $0) }
+                HomeNote(
+                    router: router,
+                    hasAddedRecentNote: $hasAddedRecentNote
+                )
+                .navigationDestination(for: Route.self) { navigate(to: $0) }
             }
             .tint(Color.black)
+            .modelContainer(for: Note.self)
         }
     }
     
@@ -31,7 +36,7 @@ struct BabyNotesApp: App {
         case .noteCategory:
             ListNote()
         case .addNote:
-            ListNote()
+            AddNote(hasAddedRecentNote: $hasAddedRecentNote)
         }
     }
 }
