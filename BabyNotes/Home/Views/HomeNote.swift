@@ -9,8 +9,6 @@ import OSLog
 import SwiftUI
 import SwiftData
 
-//Check bindable to understand
-//Check how to pass hasAddedRecentNote to decouple from route
 struct HomeNote: View {
     @Bindable var router: RouterImpl
     @Binding var hasAddedRecentNote: Bool
@@ -55,11 +53,11 @@ struct HomeNote: View {
                 .padding(.trailing, 32)
             })
             .onAppear {
-                Logger.viewCycle.notice("homeNote::appeared")
+                Logger.viewCycle.notice("homeNote::onAppear")
                 model.fetchRecentNotes(from: context, hasAddedRecentNote: hasAddedRecentNote)
             }
             .onDisappear {
-                Logger.viewCycle.notice("homeNote:: disappeared")
+                Logger.viewCycle.notice("homeNote:: onDisappear")
                 hasAddedRecentNote = false
             }
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B42270732BCEDEB200623FA6 /* BabyNotesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42270722BCEDEB200623FA6 /* BabyNotesModel.swift */; };
 		B42E271C2BA86FC8004EBB3C /* String+EXT.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E271B2BA86FC8004EBB3C /* String+EXT.swift */; };
 		B42E271F2BA870E4004EBB3C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = B42E271E2BA870E4004EBB3C /* Category.swift */; };
 		B44B638A2BC41ABC006BB39E /* NoteCategoryCardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44B63892BC41ABC006BB39E /* NoteCategoryCardModel.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B42270722BCEDEB200623FA6 /* BabyNotesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BabyNotesModel.swift; sourceTree = "<group>"; };
 		B42E271B2BA86FC8004EBB3C /* String+EXT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+EXT.swift"; sourceTree = "<group>"; };
 		B42E271E2BA870E4004EBB3C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		B44B63892BC41ABC006BB39E /* NoteCategoryCardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCategoryCardModel.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			isa = PBXGroup;
 			children = (
 				B4F8F9F32B95FFDF00A3736B /* BabyNotesApp.swift */,
+				B42270722BCEDEB200623FA6 /* BabyNotesModel.swift */,
 				B4F8FA012B96013D00A3736B /* Home */,
 				B4DC48BE2BC523A700858152 /* List */,
 				B4A993A92BA1DACD00C7847B /* Add */,
@@ -403,6 +406,7 @@
 				B45B33812BCD387B00D55DBC /* HomeModel.swift in Sources */,
 				B4F8FA072B9613EF00A3736B /* HeaderInfos.swift in Sources */,
 				B4A387A22BBDB1AF00A1633C /* NoteCategoryList.swift in Sources */,
+				B42270732BCEDEB200623FA6 /* BabyNotesModel.swift in Sources */,
 				B4D645AC2BA99175008892F2 /* TitleTextField.swift in Sources */,
 				B4E7B2832BBAB59700FBF22B /* NoteCategoryCard.swift in Sources */,
 				B46440952BAC7019007531BF /* CategoryScrollView.swift in Sources */,
