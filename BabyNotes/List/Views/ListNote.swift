@@ -6,26 +6,24 @@
 //
 
 import SwiftUI
-import OSLog
+import SwiftData
 
 struct ListNote: View {
-    @Environment(\.modelContext) private var context
-    @State private var model = Model()
+    static private var descriptor: FetchDescriptor<Note> {
+        return FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
+    }
+    
+    @Query(descriptor) private var notes: [Note]
     
     var body: some View {
+        let _ = Self._printChanges()
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 16.0) {
-                ForEach(model.notes.indices, id: \.self) { idx in
-                    let note = model.notes[idx]
+                ForEach(notes.indices, id: \.self) { idx in
+                    let note = notes[idx]
                     NoteCard(note: note)
                         .frame(maxWidth: .infinity)
                         .id(idx)
-                        .onAppear {
-                            model.fetchMoreNotes(
-                                context: context,
-                                note: note
-                            )
-                        }
                 }
             }
             .padding(
@@ -36,11 +34,6 @@ struct ListNote: View {
                     trailing: 32
                 )
             )
-        }
-        .onFirstAppear {
-            Logger.viewCycle.notice("listNote::onFirstAppear")
-            model.fetchNumberOfNotes(context: context)
-            model.fetchNotes(context: context)
         }
     }
 }

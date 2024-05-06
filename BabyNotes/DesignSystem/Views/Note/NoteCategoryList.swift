@@ -8,11 +8,9 @@
 import SwiftUI
 
 struct NoteCategoryList: View {
-    @Binding var hasAddedRecentNote: Bool
-    
     var body: some View {
         ForEach(Category.allCases, id: \.self) { category in
-            NoteCategoryCard(category: category, hasAddedRecentNote: $hasAddedRecentNote)
+            NoteCategoryCard(category: category)
                 .padding(
                     EdgeInsets(
                         top: 8,
@@ -26,5 +24,5 @@ struct NoteCategoryList: View {
 }
 
 #Preview {
-    NoteCategoryList(hasAddedRecentNote: .constant(false))
+    NoteCategoryList()
 }

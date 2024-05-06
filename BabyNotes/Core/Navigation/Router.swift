@@ -19,14 +19,20 @@ final class RouterImpl: Router {
     var navPath: NavigationPath = NavigationPath()
     
     func navigate(to route: Route) {
-        navPath.append(route)
+        withAnimation {
+            navPath.append(route)
+        }
     }
     
     func navigateBack() {
-        navPath.removeLast()
+        withAnimation {
+            navPath.removeLast()
+        }
     }
         
     func navigateToRoot() {
-        navPath.removeLast(navPath.count)
+        withAnimation {
+            navPath.removeLast(navPath.count)
+        }
     }
 }

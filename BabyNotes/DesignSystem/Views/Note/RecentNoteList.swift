@@ -6,21 +6,30 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RecentNoteList: View {
     let width: Double
+    let hasAddedRecentNote: Bool
     
-    @Binding var data: [Note]
-    @Binding var hasAddedRecentNote: Bool
+    static private var descriptor: FetchDescriptor<Note> {
+        var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
+        descriptor.fetchLimit = 5
+        return descriptor
+    }
+    
+    @Query(descriptor) private var data: [Note]
     
     var body: some View {
+        let _ = Self._printChanges()
         ScrollViewReader { value in
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16.0) {
+                LazyHStack(spacing: 16.0) {
                     ForEach(data.indices, id: \.self) { idx in
-                        NoteCard(note: data[idx])
+                        let note = data[idx]
+                        NoteCard(note: note)
                             .frame(width: width)
-                            .id(idx)
+                            .id(note.id)
                     }
                 }
                 .padding(
@@ -32,7 +41,9 @@ struct RecentNoteList: View {
                     )
                 )
             }
-            .onAppear { scrollToLatestNote(value) }
+            .onAppear {
+                scrollToLatestNote(value)
+            }
         }
     }
     
@@ -43,11 +54,5 @@ struct RecentNoteList: View {
 }
 
 #Preview {
-    RecentNoteList(
-        width: 100,
-        data: .constant([
-            .init(title: "1", content: "kfjddjfdjkjfd", category: .health),
-            .init(title: "2", content: "skklsdkldsklds", category: .awakening)
-        ]), hasAddedRecentNote: .constant(false)
-    )
+    RecentNoteList(width: 100, hasAddedRecentNote: false)
 }

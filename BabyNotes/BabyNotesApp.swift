@@ -9,20 +9,19 @@ import SwiftUI
 
 @main
 struct BabyNotesApp: App {
-    @State private var model = Model()
+    @State private var router = RouterImpl()
+    @State private var hasAddedRecentNote: Bool = false
     
     var body: some Scene {
         WindowGroup {
-            NavigationStack(path: $model.router.navPath) {
-                HomeNote(
-                    router: model.router,
-                    hasAddedRecentNote: $model.hasAddedRecentNote
-                )
-                .navigationDestination(for: Route.self) { navigate(to: $0) }
+            NavigationStack(path: $router.navPath) {
+                HomeNote(hasAddedRecentNote: $hasAddedRecentNote)
+                    .navigationDestination(for: Route.self) { navigate(to: $0) }
+                    .environment(router)
             }
             .tint(Color.black)
-            .modelContainer(for: Note.self)
         }
+        .modelContainer(for: Note.self)
     }
     
     @ViewBuilder
@@ -35,7 +34,7 @@ struct BabyNotesApp: App {
         case .noteCategory:
             ListNote()
         case .addNote:
-            AddNote(hasAddedRecentNote: $model.hasAddedRecentNote)
+            AddNote(hasAddedRecentNote: $hasAddedRecentNote)
         }
     }
 }

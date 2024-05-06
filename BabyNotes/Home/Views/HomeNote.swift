@@ -10,12 +10,12 @@ import SwiftUI
 import SwiftData
 
 struct HomeNote: View {
-    @Bindable var router: RouterImpl
-    @Binding var hasAddedRecentNote: Bool
     @Environment(\.modelContext) private var context
-    @State private var model = Model()
+    @Environment(RouterImpl.self) private var router
+    @Binding var hasAddedRecentNote: Bool
     
     var body: some View {
+        let _ = Self._printChanges()
         GeometryReader { geometry in
             ZStack(alignment: .bottomTrailing, content: {
                 ScrollView {
@@ -28,15 +28,14 @@ struct HomeNote: View {
                     }
                     RecentNoteList(
                         width: geometry.size.width / 2,
-                        data: $model.recentNote,
-                        hasAddedRecentNote: $hasAddedRecentNote
+                        hasAddedRecentNote: hasAddedRecentNote
                     )
                     HeaderSection(
                         title: "Category",
                         style: .none,
                         action: nil
                     )
-                    NoteCategoryList(hasAddedRecentNote: $hasAddedRecentNote)
+                    NoteCategoryList()
                 }
                 .safeAreaPadding(.bottom, 66)
                 .scrollIndicators(.hidden)
@@ -52,21 +51,11 @@ struct HomeNote: View {
                 )
                 .padding(.trailing, 32)
             })
-            .onAppear {
-                Logger.viewCycle.notice("homeNote::onAppear")
-                model.fetchRecentNotes(from: context, hasAddedRecentNote: hasAddedRecentNote)
-            }
-            .onDisappear {
-                Logger.viewCycle.notice("homeNote:: onDisappear")
-                hasAddedRecentNote = false
-            }
         }
+        .onDisappear { hasAddedRecentNote = false }
     }
 }
 
 #Preview {
-    HomeNote(
-        router: RouterImpl(),
-        hasAddedRecentNote: .constant(false)
-    )
+    HomeNote(hasAddedRecentNote: .constant(false))
 }
