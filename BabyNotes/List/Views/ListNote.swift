@@ -9,11 +9,18 @@ import SwiftUI
 import SwiftData
 
 struct ListNote: View {
-    static private var descriptor: FetchDescriptor<Note> {
-        return FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
-    }
+    @Query private var notes: [Note]
     
-    @Query(descriptor) private var notes: [Note]
+    init(category: Category) {
+        let descriptor = FetchDescriptor<Note>(
+            predicate: #Predicate { $0.idCategory == category.rawValue },
+            sortBy: [
+                SortDescriptor(\.updatedAt, order: .reverse)
+            ]
+        )
+        
+        _notes = Query(descriptor)
+    }
     
     var body: some View {
         let _ = Self._printChanges()
@@ -39,5 +46,5 @@ struct ListNote: View {
 }
 
 #Preview {
-    ListNote()
+    ListNote(category: .health)
 }

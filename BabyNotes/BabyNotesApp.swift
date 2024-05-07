@@ -27,12 +27,10 @@ struct BabyNotesApp: App {
     @ViewBuilder
     private func navigate(to route: Route) -> some View {
         switch route {
-        case .seeAllNotes:
-            ListNote()
         case .editNote:
-            ListNote()
-        case .noteCategory:
-            ListNote()
+            EmptyView()
+        case .noteCategory(let category):
+            ListNote(category: category)
         case .addNote:
             AddNote(hasAddedRecentNote: $hasAddedRecentNote)
         }

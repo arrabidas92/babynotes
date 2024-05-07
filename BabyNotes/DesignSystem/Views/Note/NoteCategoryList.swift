@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct NoteCategoryList: View {
+    let action: (Category) -> ()
+    
     var body: some View {
         ForEach(Category.allCases, id: \.self) { category in
             NoteCategoryCard(category: category)
@@ -19,10 +21,11 @@ struct NoteCategoryList: View {
                         trailing: 32
                     )
                 )
+                .onTapGesture { action(category) }
         }
     }
 }
 
 #Preview {
-    NoteCategoryList()
+    NoteCategoryList { category in print(category) }
 }

@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 import SwiftData
-
+//Edit an existing note card
 struct HomeNote: View {
     @Environment(\.modelContext) private var context
     @Environment(RouterImpl.self) private var router
@@ -22,10 +22,9 @@ struct HomeNote: View {
                     HeaderNote()
                     HeaderSection(
                         title: "Recent",
-                        style: .text
-                    ) {
-                        router.navigate(to: .seeAllNotes)
-                    }
+                        style: .none,
+                        action: nil
+                    )
                     RecentNoteList(
                         width: geometry.size.width / 2,
                         hasAddedRecentNote: hasAddedRecentNote
@@ -35,7 +34,9 @@ struct HomeNote: View {
                         style: .none,
                         action: nil
                     )
-                    NoteCategoryList()
+                    NoteCategoryList { category in
+                        router.navigate(to: .noteCategory(category))
+                    }
                 }
                 .safeAreaPadding(.bottom, 66)
                 .scrollIndicators(.hidden)
