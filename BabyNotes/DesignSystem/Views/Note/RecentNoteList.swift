@@ -11,7 +11,7 @@ import SwiftData
 struct RecentNoteList: View {
     let width: Double
     let hasAddedRecentNote: Bool
-    let action: (Note) -> ()
+    let onTap: (Note) -> ()
     
     static private var descriptor: FetchDescriptor<Note> {
         var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
@@ -20,6 +20,7 @@ struct RecentNoteList: View {
     }
     
     @Query(descriptor) private var data: [Note]
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         let _ = Self._printChanges()
@@ -28,10 +29,13 @@ struct RecentNoteList: View {
                 LazyHStack(spacing: 16.0) {
                     ForEach(data.indices, id: \.self) { idx in
                         let note = data[idx]
-                        NoteCard(note: note)
-                            .frame(width: width)
-                            .id(note.id)
-                            .onTapGesture { action(note) }
+                        NoteCard(
+                            note: note,
+                            onTap: { onTap($0) },
+                            onDelete: { context.delete($0) }
+                        )
+                        .frame(width: width)
+                        .id(note.id)
                     }
                 }
                 .padding(

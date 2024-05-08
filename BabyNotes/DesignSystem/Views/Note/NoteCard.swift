@@ -9,6 +9,8 @@ import SwiftUI
 
 struct NoteCard: View {
     let note: Note
+    let onTap: (Note) -> ()
+    let onDelete: (Note) -> ()
     
     var body: some View {
         let _ = Self._printChanges()
@@ -27,14 +29,18 @@ struct NoteCard: View {
             RoundedRectangle(cornerRadius: 16.0)
         )
         .shadow(color: note.categoryColor.color, radius: 4)
+        .onTapGesture { onTap(note) }
+        .contextMenu(
+            ContextMenu(
+                menuItems: {
+                    Button(
+                        role: .destructive,
+                        action: { onDelete(note) },
+                        label: {
+                        Label("Supprimer", systemImage: "trash")
+                    })
+                }
+            )
+        )
     }
-}
-
-#Preview {
-    NoteCard(
-        note: .init(
-            title: "Test",
-            content: "dfjdfjdfkjkdfjkfddfjkjdkfjdkdjk",
-            category: .health)
-    )
 }

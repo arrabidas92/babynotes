@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-//Add routing from ListNote also
+
 struct AddNote: View {
     private let mode: NoteMode
     
@@ -59,9 +59,23 @@ struct AddNote: View {
         .background(backgroundColor)
         .navigationTitle(navigationTitle)
         .toolbar {
-            ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
-                ToolbarButton(label: "Sauvegarder", isDisabled: isDisabled) {
+            ToolbarItem(placement: .topBarTrailing) {
+                ToolbarIconButton(
+                    systemIcon: "square.and.arrow.down",
+                    isDisabled: isDisabled,
+                    role: nil
+                ) {
                     saveNote()
+                }
+            }
+            //Show onle on edit mode
+            ToolbarItem(placement: .topBarTrailing) {
+                ToolbarIconButton(
+                    systemIcon: "trash",
+                    isDisabled: false,
+                    role: .destructive
+                ) {
+                    //to implement
                 }
             }
         }

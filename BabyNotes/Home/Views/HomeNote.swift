@@ -8,7 +8,7 @@
 import OSLog
 import SwiftUI
 import SwiftData
-//Edit an existing note card
+
 struct HomeNote: View {
     @Environment(\.modelContext) private var context
     @Environment(RouterImpl.self) private var router

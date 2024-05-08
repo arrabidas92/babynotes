@@ -7,22 +7,24 @@
 
 import SwiftUI
 
-struct ToolbarButton: View {
-    let label: String
+struct ToolbarIconButton: View {
+    let systemIcon: String
     let isDisabled: Bool
+    let role: ButtonRole?
     let onAction: () -> ()
     
     var body: some View {
         let _ = Self._printChanges()
-        Button {
+        Button(role: role) {
             onAction()
         } label: {
-            Text(label)
+            Image(systemName: systemIcon)
+                .foregroundStyle(role == .destructive ? Color.red : Color.black)
         }
         .disabled(isDisabled)
     }
 }
 
 #Preview {
-    ToolbarButton(label: "Action", isDisabled: false) { print("Click action") }
+    ToolbarIconButton(systemIcon: "square.and.arrow.down", isDisabled: false, role: .cancel) { print("Click action") }
 }

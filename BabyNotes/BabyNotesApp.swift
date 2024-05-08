@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//Issue editing note doesn't update category list number of notes
 @main
 struct BabyNotesApp: App {
     @State private var router = RouterImpl()
@@ -30,7 +30,7 @@ struct BabyNotesApp: App {
         case .editNote(let note):
             AddNote(mode: .edit(note))
         case .noteCategory(let category):
-            ListNote(category: category)
+            ListNote(category: category) { router.navigate(to: .editNote($0)) }
         case .addNote:
             AddNote(mode: .add($hasAddedRecentNote))
         }

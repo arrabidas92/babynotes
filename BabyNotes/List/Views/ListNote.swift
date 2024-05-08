@@ -9,9 +9,17 @@ import SwiftUI
 import SwiftData
 
 struct ListNote: View {
-    @Query private var notes: [Note]
+    let onTap: (Note) -> ()
     
-    init(category: Category) {
+    @Query private var notes: [Note]
+    @Environment(\.modelContext) private var context
+    
+    init(
+        category: Category,
+        onTap: @escaping (Note) -> ()
+    ) {
+        self.onTap = onTap
+        
         let descriptor = FetchDescriptor<Note>(
             predicate: #Predicate { $0.idCategory == category.rawValue },
             sortBy: [
@@ -28,9 +36,13 @@ struct ListNote: View {
             LazyVStack(spacing: 16.0) {
                 ForEach(notes.indices, id: \.self) { idx in
                     let note = notes[idx]
-                    NoteCard(note: note)
-                        .frame(maxWidth: .infinity)
-                        .id(idx)
+                    NoteCard(
+                        note: note,
+                        onTap: { onTap($0) },
+                        onDelete: { context.delete($0) }
+                    )
+                    .frame(maxWidth: .infinity)
+                    .id(idx)
                 }
             }
             .padding(
@@ -46,5 +58,5 @@ struct ListNote: View {
 }
 
 #Preview {
-    ListNote(category: .health)
+    ListNote(category: .health) { note in print(note) }
 }
