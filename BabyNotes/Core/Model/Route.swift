@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum Route: Hashable {
-    case editNote
+    case editNote(Note)
     case noteCategory(Category)
     case addNote
 }

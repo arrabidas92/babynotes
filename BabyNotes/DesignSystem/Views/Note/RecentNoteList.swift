@@ -11,6 +11,7 @@ import SwiftData
 struct RecentNoteList: View {
     let width: Double
     let hasAddedRecentNote: Bool
+    let action: (Note) -> ()
     
     static private var descriptor: FetchDescriptor<Note> {
         var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
@@ -30,6 +31,7 @@ struct RecentNoteList: View {
                         NoteCard(note: note)
                             .frame(width: width)
                             .id(note.id)
+                            .onTapGesture { action(note) }
                     }
                 }
                 .padding(
@@ -54,5 +56,5 @@ struct RecentNoteList: View {
 }
 
 #Preview {
-    RecentNoteList(width: 100, hasAddedRecentNote: false)
+    RecentNoteList(width: 100, hasAddedRecentNote: false) { note in print(note) }
 }

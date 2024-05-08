@@ -6,14 +6,33 @@
 //
 
 import SwiftUI
-
+//Add routing from ListNote also
 struct AddNote: View {
+    private let mode: NoteMode
+    
     @Environment(\.modelContext) private var context
     @Environment(\.dismiss) private var dismiss
-    @Binding var hasAddedRecentNote: Bool
+    @Binding private var hasAddedRecentNote: Bool
     @State private var selectedCategory: Category? = nil
     @State private var noteTitle: String = ""
     @State private var noteContent: String = "Contenu"
+    
+    init(mode: NoteMode) {
+        self.mode = mode
+        
+        switch mode {
+        case .add(let hasAddedRecentNote):
+            _hasAddedRecentNote = hasAddedRecentNote
+        case .edit(let note):
+            _hasAddedRecentNote = .constant(false)
+            _selectedCategory = State(
+                initialValue: Category(rawValue: note.idCategory)
+            )
+            
+            _noteTitle = State(initialValue: note.title)
+            _noteContent = State(initialValue: note.content)
+        }
+    }
     
     var body: some View {
         let _ = Self._printChanges()
@@ -38,15 +57,22 @@ struct AddNote: View {
             }
         }
         .background(backgroundColor)
-        .navigationTitle("Créer une note")
+        .navigationTitle(navigationTitle)
         .toolbar {
             ToolbarItem(placement: ToolbarItemPlacement.navigationBarTrailing) {
                 ToolbarButton(label: "Sauvegarder", isDisabled: isDisabled) {
-                    addNote()
-                    hasAddedRecentNote = true
-                    dismiss()
+                    saveNote()
                 }
             }
+        }
+    }
+    
+    private var navigationTitle: String {
+        switch mode {
+        case .add:
+            return "Créer une note"
+        case .edit:
+            return "Éditer une note"
         }
     }
     
@@ -64,6 +90,18 @@ struct AddNote: View {
         noteContent.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
     
+    private func saveNote() {
+        switch mode {
+        case .add:
+            addNote()
+            hasAddedRecentNote = true
+        case .edit(let note):
+           updateNote(note)
+        }
+        
+        dismiss()
+    }
+    
     private func addNote() {
         guard let category = selectedCategory else { return }
         
@@ -75,8 +113,14 @@ struct AddNote: View {
         
         context.insert(newNote)
     }
+    
+    private func updateNote(_ note: Note) {
+        guard let selectedCategory = selectedCategory else { return }
+        
+        note.update(title: noteTitle, content: noteContent, category: selectedCategory)
+    }
 }
 
 #Preview {
-    AddNote(hasAddedRecentNote: .constant(false))
+    AddNote(mode: .add(.constant(false)))
 }

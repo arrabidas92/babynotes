@@ -29,6 +29,15 @@ import SwiftData
         self.updatedAt = Date().timeIntervalSince1970
     }
     
+    func update(title: String, content: String, category: Category) {
+        self.title = title
+        self.content = content
+        self.idCategory = category.rawValue
+        self.categoryTitle = category.title
+        self.categoryColor = category.colorName
+        self.categoryEmoji = category.emoji
+    }
+    
     var description: String {
         return "Note id = \(id), title = \(title), content = \(content), idCategory = \(idCategory), idCategory = \(categoryTitle), categoryColor = \(categoryColor), categoryEmoji = \(categoryEmoji), updatedAt = \(updatedAt)"
     }

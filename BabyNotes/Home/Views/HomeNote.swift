@@ -28,14 +28,17 @@ struct HomeNote: View {
                     RecentNoteList(
                         width: geometry.size.width / 2,
                         hasAddedRecentNote: hasAddedRecentNote
-                    )
+                    ) {
+                        print("tap on note = \($0)")
+                        router.navigate(to: .editNote($0))
+                    }
                     HeaderSection(
                         title: "Category",
                         style: .none,
                         action: nil
                     )
-                    NoteCategoryList { category in
-                        router.navigate(to: .noteCategory(category))
+                    NoteCategoryList {
+                        router.navigate(to: .noteCategory($0))
                     }
                 }
                 .safeAreaPadding(.bottom, 66)
