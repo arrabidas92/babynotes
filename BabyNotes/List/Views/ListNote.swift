@@ -15,17 +15,33 @@ struct ListNote: View {
     @Environment(\.modelContext) private var context
     
     init(
-        category: Category,
+        mode: ListMode,
         onTap: @escaping (Note) -> ()
     ) {
         self.onTap = onTap
         
-        let descriptor = FetchDescriptor<Note>(
-            predicate: #Predicate { $0.idCategory == category.rawValue },
-            sortBy: [
-                SortDescriptor(\.updatedAt, order: .reverse)
-            ]
-        )
+        let descriptor: FetchDescriptor<Note>
+        
+        switch mode {
+        case .category(let category):
+            descriptor = FetchDescriptor<Note>(
+                predicate: #Predicate { $0.idCategory == category.rawValue },
+                sortBy: [
+                    SortDescriptor(\.updatedAt, order: .reverse)
+                ]
+            )
+        case .search(let string):
+            descriptor = FetchDescriptor<Note>(
+                predicate: #Predicate {
+                    $0.title.localizedStandardContains(string) ||
+                    $0.content.localizedStandardContains(string) ||
+                    $0.categoryTitle.localizedStandardContains(string)
+                },
+                sortBy: [
+                    SortDescriptor(\.updatedAt, order: .reverse)
+                ]
+            )
+        }
         
         _notes = Query(descriptor)
     }
@@ -58,5 +74,5 @@ struct ListNote: View {
 }
 
 #Preview {
-    ListNote(category: .health) { note in print(note) }
+    ListNote(mode: .category(.health)) { note in print(note) }
 }
