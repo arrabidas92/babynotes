@@ -65,6 +65,8 @@ struct HomeNote: View {
             }
         }
         .onDisappear { hasAddedRecentNote = false }
+        .navigationTitle("Accueil")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

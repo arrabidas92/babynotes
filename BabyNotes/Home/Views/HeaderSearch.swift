@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+//When search is active replace image icon to clear the full search + add clearing full search behavior
 struct HeaderSearch: View {
     @Binding var search: String
     

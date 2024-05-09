@@ -70,6 +70,8 @@ struct ListNote: View {
                 )
             )
         }
+        .navigationTitle("Liste")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
