@@ -59,25 +59,37 @@ struct AddNote: View {
         .background(backgroundColor)
         .navigationTitle(navigationTitle)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                ToolbarIconButton(
-                    systemIcon: "square.and.arrow.down",
-                    isDisabled: isDisabled,
-                    role: nil
-                ) {
-                    saveNote()
+            switch mode {
+            case .add:
+                ToolbarItem(placement: .topBarTrailing) {
+                    getSaveToolbarItem()
+                }
+            case .edit:
+                ToolbarItem(placement: .topBarTrailing) {
+                    getSaveToolbarItem()
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    ToolbarIconButton(
+                        systemIcon: "trash",
+                        isDisabled: false,
+                        role: .destructive
+                    ) {
+                        deleteNote()
+                    }
                 }
             }
-            //Show onle on edit mode
-            ToolbarItem(placement: .topBarTrailing) {
-                ToolbarIconButton(
-                    systemIcon: "trash",
-                    isDisabled: false,
-                    role: .destructive
-                ) {
-                    //to implement
-                }
-            }
+        }
+    }
+    
+    @ViewBuilder
+    private func getSaveToolbarItem() -> ToolbarIconButton {
+        ToolbarIconButton(
+            systemIcon: "square.and.arrow.down",
+            isDisabled: isDisabled,
+            role: nil
+        ) {
+            saveNote()
         }
     }
     
@@ -132,6 +144,16 @@ struct AddNote: View {
         guard let selectedCategory = selectedCategory else { return }
         
         note.update(title: noteTitle, content: noteContent, category: selectedCategory)
+    }
+    
+    private func deleteNote() {
+        switch mode {
+        case .add:
+            return
+        case .edit(let note):
+            context.delete(note)
+            dismiss()
+        }
     }
 }
 
