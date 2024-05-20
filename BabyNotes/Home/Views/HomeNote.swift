@@ -14,9 +14,9 @@ struct HomeNote: View {
     @Environment(RouterImpl.self) private var router
     @Binding var hasAddedRecentNote: Bool
     @State private var search: String = ""
+    @State private var deletedCategory: Category? = nil
     
     var body: some View {
-        let _ = Self._printChanges()
         VStack(spacing: 0) {
             HeaderNote(search: $search)
             GeometryReader { geometry in
@@ -31,18 +31,24 @@ struct HomeNote: View {
                             )
                             RecentNoteList(
                                 width: geometry.size.width / 2,
-                                hasAddedRecentNote: hasAddedRecentNote
-                            ) {
-                                router.navigate(to: .editNote($0))
-                            }
+                                hasAddedRecentNote: hasAddedRecentNote,
+                                onTap: { note in
+                                    router.navigate(to: .editNote(note))
+                                },
+                                onDelete: { deletedCategory in
+                                    self.deletedCategory = deletedCategory
+                                }
+                            )
                             HeaderSection(
                                 title: "Category",
                                 style: .none,
                                 action: nil
                             )
-                            NoteCategoryList {
+                            NoteCategoryList(
+                                action: {
                                 router.navigate(to: .noteCategory($0))
-                            }
+                            }, deletedCategory: $deletedCategory
+                            )
                         } else {
                             ListNote(mode: .search(search)) { router.navigate(to: .editNote($0))
                             }
@@ -64,7 +70,10 @@ struct HomeNote: View {
                 })
             }
         }
-        .onDisappear { hasAddedRecentNote = false }
+        .onDisappear {
+            hasAddedRecentNote = false
+            deletedCategory = nil
+        }
         .navigationTitle("Accueil")
         .navigationBarTitleDisplayMode(.inline)
     }

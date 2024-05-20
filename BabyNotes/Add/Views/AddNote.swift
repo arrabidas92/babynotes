@@ -35,7 +35,6 @@ struct AddNote: View {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
         ZStack(alignment: .bottomTrailing) {
             VStack(alignment: .leading) {
                 CategoryScrollView(

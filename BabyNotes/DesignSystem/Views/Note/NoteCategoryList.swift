@@ -9,23 +9,32 @@ import SwiftUI
 
 struct NoteCategoryList: View {
     let action: (Category) -> ()
+    @Binding var deletedCategory: Category?
+    
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         ForEach(Category.allCases, id: \.self) { category in
-            NoteCategoryCard(category: category)
-                .padding(
-                    EdgeInsets(
-                        top: 8,
-                        leading: 32,
-                        bottom: 8,
-                        trailing: 32
-                    )
+            NoteCategoryCard(
+                category: category,
+                deletedCategory: $deletedCategory
+            )
+            .padding(
+                EdgeInsets(
+                    top: 8,
+                    leading: 32,
+                    bottom: 8,
+                    trailing: 32
                 )
-                .onTapGesture { action(category) }
+            )
+            .onTapGesture { action(category) }
         }
     }
 }
 
 #Preview {
-    NoteCategoryList { category in print(category) }
+    NoteCategoryList(
+        action: { category in print(category) },
+        deletedCategory: .constant(nil)
+    )
 }

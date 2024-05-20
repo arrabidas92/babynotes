@@ -12,6 +12,7 @@ struct RecentNoteList: View {
     let width: Double
     let hasAddedRecentNote: Bool
     let onTap: (Note) -> ()
+    let onDelete: (Category?) -> ()
     
     static private var descriptor: FetchDescriptor<Note> {
         var descriptor = FetchDescriptor<Note>(sortBy: [SortDescriptor(\.updatedAt, order: .reverse)])
@@ -23,7 +24,6 @@ struct RecentNoteList: View {
     @Environment(\.modelContext) private var context
     
     var body: some View {
-        let _ = Self._printChanges()
         ScrollViewReader { value in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16.0) {
@@ -32,7 +32,11 @@ struct RecentNoteList: View {
                         NoteCard(
                             note: note,
                             onTap: { onTap($0) },
-                            onDelete: { context.delete($0) }
+                            onDelete: {
+                                context.delete($0)
+                                let category = Category(rawValue: $0.idCategory)
+                                onDelete(category)
+                            }
                         )
                         .frame(width: width)
                         .id(note.id)
@@ -57,8 +61,4 @@ struct RecentNoteList: View {
         guard hasAddedRecentNote else { return }
         value.scrollTo(0, anchor: .trailing)
     }
-}
-
-#Preview {
-    RecentNoteList(width: 100, hasAddedRecentNote: false) { note in print(note) }
 }

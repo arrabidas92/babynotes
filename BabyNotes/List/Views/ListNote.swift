@@ -47,7 +47,6 @@ struct ListNote: View {
     }
     
     var body: some View {
-        let _ = Self._printChanges()
         ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 16.0) {
                 ForEach(notes.indices, id: \.self) { idx in

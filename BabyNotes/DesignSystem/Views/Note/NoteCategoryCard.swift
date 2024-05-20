@@ -10,15 +10,16 @@ import SwiftData
 
 struct NoteCategoryCard: View {
     let category: Category
+    @Binding var deletedCategory: Category?
     
     @Environment(\.modelContext) private var context
-    @State private var _numberOfNotes: String = "0 Note"
+    @State private var nbNotes = 0
     
     var body: some View {
         return HStack(spacing: 16.0) {
             NoteCategoryEmoji(emoji: category.emoji)
             VStack(alignment: .leading) {
-                Text(_numberOfNotes)
+                Text(nbNotesFormatted)
                     .font(.footnote)
                 Text(category.title)
                     .font(.callout)
@@ -35,14 +36,28 @@ struct NoteCategoryCard: View {
         .onAppear { updateNumberOfNotes() }
     }
     
+    var nbNotesFormatted: String {
+        let _nbNotes: Int
+        
+        if deletedCategory == category {
+            _nbNotes = nbNotes - 1
+        } else {
+            _nbNotes = nbNotes
+        }
+        
+        return _nbNotes > 1 ? "\(_nbNotes) Notes" : "\(_nbNotes) Note"
+    }
+    
     private func updateNumberOfNotes() {
         let descriptor = FetchDescriptor<Note>(predicate: #Predicate { $0.idCategory == category.rawValue })
         let numberOfNotes = try? context.fetchCount(descriptor)
-        let rawValue = numberOfNotes ?? 0
-        _numberOfNotes = rawValue > 1 ? "\(rawValue) Notes" : "\(rawValue) Note"
+        nbNotes = numberOfNotes ?? 0
     }
 }
 
 #Preview {
-    NoteCategoryCard(category: .health)
+    NoteCategoryCard(
+        category: .health,
+        deletedCategory: .constant(nil)
+    )
 }

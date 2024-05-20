@@ -14,7 +14,6 @@ struct ToolbarIconButton: View {
     let onAction: () -> ()
     
     var body: some View {
-        let _ = Self._printChanges()
         Button(role: role) {
             onAction()
         } label: {

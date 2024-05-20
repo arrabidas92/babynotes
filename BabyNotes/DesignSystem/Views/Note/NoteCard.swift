@@ -13,7 +13,6 @@ struct NoteCard: View {
     let onDelete: (Note) -> ()
     
     var body: some View {
-        let _ = Self._printChanges()
         VStack(spacing: 16.0, content: {
             Text(note.title)
                 .frame(maxWidth: .infinity, alignment: .leading)
